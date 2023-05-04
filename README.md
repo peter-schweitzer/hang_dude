@@ -29,3 +29,32 @@
   - wie werden diese Unterschieden
     - globale `state` Variable
 - [Benutzeroberfläche](#ui)
+
+## Umsetzung
+
+### Main Loop
+
+> beim Start des Programmes die main Funktion aufrufen
+
+```py
+if __name__ == "__main__":
+  main()
+```
+
+> einfache `while True`-Schleife, aus der zum Ende ausgebrochen wird
+
+```py
+def main():
+  while True:
+    #die State-Machine
+```
+
+### State-Machine
+
+#### main_menu
+
+#### playing
+
+#### settings
+
+### UI
