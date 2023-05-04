@@ -17,3 +17,15 @@
 - Wie oft wurtde schon falsch geraten / wie oft darf man falsch raten
 - Option nach Ende erneut zu spielen
 - Komplettlösung möglich
+
+### Pflichten
+
+- [Boilerplate & Main-Loop](#main-loop)
+- [State-Machine designen](#state-machine)
+  - mögliche Zustände:
+    - Hauptmenu (main_menu)
+    - am spielen (playing)
+    - Einstellungen (settings)
+  - wie werden diese Unterschieden
+    - globale `state` Variable
+- [Benutzeroberfläche](#ui)
