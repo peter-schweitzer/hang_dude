@@ -4,7 +4,29 @@ from math import floor
 from random import random
 
 
+alph = "abcdefghijklmnopqrstuvwxyz"
+
+default_guesses: int = 10
+max_guesses: int = default_guesses
+guesses: int = 0
+guessed_chars: "List[str]" = []
+
+use_random_word: bool = True
+words: "List[str]" = []
 word: str = ""
+
+win = False
+
+
+class States:
+    done: int = -1
+    main_menu: int = 0
+    settings: int = 1
+    guess_num: int = 2
+    custom_word: int = 3
+    enter_custom_word = 4
+    playing: int = 5
+
 
 state: int = States.main_menu
 prompts = [
