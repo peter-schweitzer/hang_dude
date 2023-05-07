@@ -72,8 +72,21 @@ def main_menu(i: str) -> None:
         WRN("Unerwartete Eingabe")
 
 
-def playing():
-  print("mein_menu W.I.P")
+def settings(i: str) -> None:
+    global state
+
+    if i == "q":
+        state = States.main_menu
+        return
+
+    if i in ["1", "1.", "a"]:
+        state = States.guess_num
+    elif i in ["2", "2.", "w"]:
+        state = States.custom_word
+    else:
+        WRN("Unerwartete Eingabe")
+
+
 
 
 def done(_: str) -> "Literal[True]":
