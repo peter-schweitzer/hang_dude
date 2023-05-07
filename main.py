@@ -4,6 +4,18 @@ from math import floor
 from random import random
 
 
+class text_color:
+    BLUE: str = "\033[94m"
+    CYAN: str = "\033[96m"
+    GREEN: str = "\033[92m"
+    WARN: str = "\033[93m"
+    END: str = "\033[0m"
+
+
+def WRN(s: str) -> None:
+    print(f"{text_color.WARN}{s}{text_color.END}")
+
+
 alph = "abcdefghijklmnopqrstuvwxyz"
 
 default_guesses: int = 10
