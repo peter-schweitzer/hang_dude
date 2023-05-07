@@ -113,6 +113,22 @@ def guess_num(i: str) -> None:
     state = States.settings
 
 
+def custom_word(i: str) -> None:
+    global state, use_random_word
+
+    if i == "q":
+        state = States.settings
+        return
+
+    if i in ["1", "1.", "z"]:
+        use_random_word = True
+        state = States.settings
+    elif i in ["2", "2.", "w"]:
+        state = States.enter_custom_word
+    else:
+        WRN("Unerwartete Eingabe")
+
+
 
 
 def done(_: str) -> "Literal[True]":
