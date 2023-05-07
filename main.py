@@ -142,6 +142,38 @@ def enter_custom_word(i: str) -> None:
         state = States.settings
 
 
+def playing(i: str) -> None:
+    global state, word, max_guesses, guesses, win
+
+    g_cnt = 0
+    for c in word:
+        g_cnt = g_cnt + 1 if c in guessed_chars else g_cnt
+    if g_cnt == len(word):
+        win = True
+        state = States.done
+        return
+
+    if len(i) == 1:
+        if i in guessed_chars:
+            print("Buchstabe wurde bereits geraten")
+            return
+
+        guessed_chars.append(i)
+
+        if not i in word:
+            guesses += 1
+            if guesses == max_guesses:
+                win = False
+                state = States.done
+
+        return
+
+    if len(i) == len(word):
+        win = True if i == word else False
+        state = States.done
+        return
+
+    WRN("Unerwartete Eingabe")
 
 
 def done(_: str) -> "Literal[True]":
