@@ -129,6 +129,19 @@ def custom_word(i: str) -> None:
         WRN("Unerwartete Eingabe")
 
 
+def enter_custom_word(i: str) -> None:
+    global state, word, use_random_word
+
+    if i == "q":
+        state = States.custom_word
+    elif len(i) < 2:
+        WRN("Unerwartete Eingabe")
+    else:
+        word = i
+        use_random_word = False
+        state = States.settings
+
+
 
 
 def done(_: str) -> "Literal[True]":
