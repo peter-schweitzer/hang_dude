@@ -2,6 +2,7 @@
 
 from math import floor
 from random import random
+from typing import List, Literal
 
 
 class text_color:
