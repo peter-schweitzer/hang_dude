@@ -87,6 +87,32 @@ def settings(i: str) -> None:
         WRN("Unerwartete Eingabe")
 
 
+def guess_num(i: str) -> None:
+    global state, max_guesses, default_guesses
+
+    if i == "q":
+        state = States.settings
+        return
+
+    if i == "s":
+        max_guesses = default_guesses
+        state = States.settings
+        return
+
+    try:
+        n = int(i, 10)
+    except ValueError:
+        WRN("Eingabe ist keine Zahl")
+        return
+
+    if n < 0 or n > 25:
+        WRN("Eingabe ist eine ungültige Zahl")
+        return
+
+    max_guesses = n
+    state = States.settings
+
+
 
 
 def done(_: str) -> "Literal[True]":
