@@ -181,6 +181,17 @@ def done(_: str) -> "Literal[True]":
 
 
 def main() -> None:
+    global use_random_word, word, state, prompts, win
+
+    state = States.main_menu
+    win = False
+
+    if use_random_word:
+        with open("./deutsch.txt") as f:
+            word = (lambda x: x[floor(random() * len(x))])(f.readlines())[:-1]
+    else:
+        state = States.enter_custom_word
+
     while True:
         i = input(prompts[state]()).lower()
         if [
