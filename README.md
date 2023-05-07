@@ -56,8 +56,31 @@ def main():
 
 #### main_menu
 
-#### playing
-
 #### settings
 
+#### playing
+
 ### UI
+
+Mit "q" kann man ein Untermenu zurück gehen, außer im `playing` Zustand.
+
+#### Multiple Choise
+
+Optionen werden gelistet
+
+```txt
+---Menu-Titel---
+
+1. (O)ption 1
+2. (M)öglichkeit 2
+```
+
+Valide Eingaben für `Option 1` sind `1`, `1.`, `o` und `O`.
+Valide Eingaben für `Möglichkeit 2` sind `2`, `2.`, `m` und `M`.
+
+#### Texteingabe
+
+Im `playing` Zustand wird eine Eingabe mit nur einem Textzeichen als einzelner Buchstabe gewertet.
+Wenn die Eingabe die gleiche Länge wie das gesuchte Wort hat, wird es als Komplettlösung gewertet.
+Alle anderen Eingaben werden als invalide angesehen und nicht gewwertet.
+
