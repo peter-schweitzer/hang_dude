@@ -24,8 +24,11 @@
 - [State-Machine designen](#state-machine)
   - mögliche Zustände:
     - Hauptmenu (main_menu)
-    - am spielen (playing)
     - Einstellungen (settings)
+      - Anzahl der Versuche (guess_num)
+      - Wort Festlegen Oder Zufällig Wählen (custom_word)
+        - Eigenes Wort festlegen
+    - am spielen (playing)
   - wie werden diese Unterschieden
     - globale `state` Variable
 - [Benutzeroberfläche](#ui)
