@@ -57,8 +57,19 @@ def setup() -> None:
     print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
 
 
-def main_menu():
-  print("mein_menu W.I.P")
+def main_menu(i: str) -> None:
+    global state, guessed_chars
+
+    if i == "q":
+        exit(0)
+
+    if i in ["s", "1", "1."]:
+        guessed_chars = []
+        state = States.playing
+    elif i in ["e", "2", "2."]:
+        state = States.settings
+    else:
+        WRN("Unerwartete Eingabe")
 
 
 def playing():
