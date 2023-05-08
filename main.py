@@ -9,12 +9,16 @@ class text_color:
     BLUE: str = "\033[94m"
     CYAN: str = "\033[96m"
     GREEN: str = "\033[92m"
-    WARN: str = "\033[93m"
+    ORANGE: str = "\033[93m"
     END: str = "\033[0m"
 
 
 def WRN(s: str) -> None:
-    print(f"{text_color.WARN}{s}{text_color.END}")
+    print(f"{text_color.ORANGE}{s}{text_color.END}")
+
+
+def UE():
+    WRN("Unerwartete Eingabe")
 
 
 alph = "abcdefghijklmnopqrstuvwxyz"
@@ -37,7 +41,7 @@ class States:
     settings: int = 1
     guess_num: int = 2
     custom_word: int = 3
-    enter_custom_word = 4
+    enter_custom_word: int = 4
     playing: int = 5
 
 
@@ -69,7 +73,7 @@ def main_menu(i: str) -> None:
     elif i in ["e", "2", "2."]:
         state = States.settings
     else:
-        WRN("Unerwartete Eingabe")
+        UE()
 
 
 def settings(i: str) -> None:
@@ -84,7 +88,7 @@ def settings(i: str) -> None:
     elif i in ["2", "2.", "w"]:
         state = States.custom_word
     else:
-        WRN("Unerwartete Eingabe")
+        UE()
 
 
 def guess_num(i: str) -> None:
@@ -126,7 +130,7 @@ def custom_word(i: str) -> None:
     elif i in ["2", "2.", "w"]:
         state = States.enter_custom_word
     else:
-        WRN("Unerwartete Eingabe")
+        UE()
 
 
 def enter_custom_word(i: str) -> None:
@@ -135,7 +139,7 @@ def enter_custom_word(i: str) -> None:
     if i == "q":
         state = States.custom_word
     elif len(i) < 2:
-        WRN("Unerwartete Eingabe")
+        UE()
     else:
         word = i
         use_random_word = False
@@ -145,10 +149,7 @@ def enter_custom_word(i: str) -> None:
 def playing(i: str) -> None:
     global state, word, max_guesses, guesses, win
 
-    g_cnt = 0
-    for c in word:
-        g_cnt = g_cnt + 1 if c in guessed_chars else g_cnt
-    if g_cnt == len(word):
+    if len([c for c in word if c in guessed_chars]) == len(word):
         win = True
         state = States.done
         return
@@ -169,11 +170,10 @@ def playing(i: str) -> None:
         return
 
     if len(i) == len(word):
-        win = True if i == word else False
+        win = i == word
         state = States.done
         return
-
-    WRN("Unerwartete Eingabe")
+    UE()
 
 
 def done(_: str) -> "Literal[True]":
@@ -215,3 +215,5 @@ if __name__ == "__main__":
             main()
         elif i in ["q", "no", "n", "nein"]:
             break
+        else:
+            UE()

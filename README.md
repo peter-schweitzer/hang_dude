@@ -13,7 +13,7 @@
   - deren Position im Wort
   - Dopplungen beachten
 - Welche Buchstben wurden schon geraten
-- einstellen können, wieviele falsche Versuche man hat
+- einstellen können, wieviele falsche Versuche man hat (Standart is 10)
 - Wie oft wurtde schon falsch geraten / wie oft darf man falsch raten
 - Option nach Ende erneut zu spielen
 - Komplettlösung möglich
@@ -27,7 +27,7 @@
     - Einstellungen (settings)
       - Anzahl der Versuche (guess_num)
       - Wort Festlegen Oder Zufällig Wählen (custom_word)
-        - Eigenes Wort festlegen
+        - Eigenes Wort festlegen (enter_custom_name)
     - am spielen (playing)
   - wie werden diese Unterschieden
     - globale `state` Variable
