@@ -151,12 +151,14 @@ def enter_custom_word(i: str) -> None:
 def playing(i: str) -> None:
     global state, word, max_guesses, guesses, win
 
-    if len([c for c in word if c in guessed_chars]) == len(word):
-        win = True
-        state = States.done
-        return
+    if i == ":q":
+        state = States.main_menu
 
-    if len(i) == 1:
+    elif len(i) == len(word):
+        win = i == word
+        state = States.done
+
+    elif len(i) == 1:
         if i in guessed_chars:
             print("Buchstabe wurde bereits geraten")
             return
@@ -169,13 +171,12 @@ def playing(i: str) -> None:
                 win = False
                 state = States.done
 
-        return
+    else:
+        UE()
 
-    if len(i) == len(word):
-        win = i == word
+    if len([c for c in word if c in guessed_chars]) == len(word):
+        win = True
         state = States.done
-        return
-    UE()
 
 
 def done(_: str) -> "Literal[True]":
