@@ -184,8 +184,9 @@ def done(_: str) -> "Literal[True]":
 
 
 def main() -> None:
-    global use_random_word, word, state, prompts, win
+    global state, guesses, use_random_word, word, win, prompts
 
+    guesses = 0
     state = States.main_menu
     win = False
 
