@@ -213,7 +213,9 @@ if __name__ == "__main__":
     setup()
     main()
     while True:
-        i = input(f"{text_color.GREEN}ERNEUT SPIELEN? [J/n]{text_color.END}").lower()
+        i = input(
+            f"{text_color.GREEN}ERNEUT SPIELEN?{text_color.END}\n\n  {text_color.BLUE}1: (J)a\n  2: (N)ein{text_color.END}\n"
+        ).lower()
         if i in ["yes", "y", "ja", "j", ""]:
             main()
         elif i in ["q", "no", "n", "nein"]:
