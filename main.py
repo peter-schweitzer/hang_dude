@@ -13,6 +13,19 @@ class text_color:
     END: str = "\033[0m"
 
 
+class States:
+    done: int = -1
+    main_menu: int = 0
+    settings: int = 1
+    guess_num: int = 2
+    custom_word: int = 3
+    enter_custom_word: int = 4
+    playing: int = 5
+
+
+alph: str = "abcdefghijklmnopqrstuvwxyz"
+
+
 def WRN(s: str) -> None:
     print(f"{text_color.ORANGE}{s}{text_color.END}")
 
@@ -21,7 +34,7 @@ def UE():
     WRN("Unerwartete Eingabe")
 
 
-alph = "abcdefghijklmnopqrstuvwxyz"
+state: int = States.main_menu
 
 default_guesses: int = 10
 max_guesses: int = default_guesses
@@ -35,17 +48,6 @@ word: str = ""
 win = False
 
 
-class States:
-    done: int = -1
-    main_menu: int = 0
-    settings: int = 1
-    guess_num: int = 2
-    custom_word: int = 3
-    enter_custom_word: int = 4
-    playing: int = 5
-
-
-state: int = States.main_menu
 prompts = [
     lambda: f"{text_color.CYAN}---Hauptmenu---{text_color.END}\n\n  {text_color.BLUE}1: (S)piel starten\n  2: (E)instellungen{text_color.END}\n",
     lambda: f"{text_color.CYAN}---Einstellungen---{text_color.END}\n\n  {text_color.BLUE}1: (A)nzahl der Versuche\n  2: (W)ort festlegen oder zufällig wählen{text_color.END}\n",
