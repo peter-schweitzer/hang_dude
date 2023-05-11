@@ -31,13 +31,14 @@
 - [[#Main Loop]]
 - [[#State-Machine|State-Machine designen]]
   - [[#Unterscheidung der Zustände|wie werden die unterschiedlichen Zustände unterschieden]]
-  - [[#mögliche Zustände]]: - [[#main_menu|Hauptmenu]]
-        - [[#playing|am spielen]]
-        - [[#settings|Einstellungen]]
-        - [[#guess_num|Anzahl der Versuche]]
-        - [[#custom_word|Wort Festlegen Oder Zufällig Wählen]]
-        - [[#enter_custom_name|Eigenes Wort eingeben]]
-        - [[#done|Ende]]
+  - [[#mögliche Zustände]]:
+    - [[#main_menu|Hauptmenu]]
+    - [[#playing|am spielen]]
+    - [[#settings|Einstellungen]]
+    - [[#guess_num|Anzahl der Versuche]]
+    - [[#custom_word|Wort Festlegen Oder Zufällig Wählen]]
+    - [[#enter_custom_name|Eigenes Wort eingeben]]
+    - [[#done|Ende]]
 
 ---
 
