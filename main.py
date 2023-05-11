@@ -54,7 +54,7 @@ prompts = [
     lambda: f"{text_color.CYAN}---Anzahl Der Versuche---{text_color.END}\n\n  {text_color.BLUE}bitte eine Zahl zwischen 0-25 oder 's' für Standart (Standartwert ist 10, momentan {max_guesses}){text_color.END}\n",
     lambda: f"{text_color.CYAN}---Wort Festlegen Oder Zufällig Wählen---{text_color.END}\n\n  {text_color.BLUE}1: (Z)ufälliges Wort {'(momentan)' if use_random_word else '' }\n  2: (W)ort Festlegen/Multiplayer {'' if use_random_word else '(momentan)' }{text_color.END}\n",
     lambda: f"{text_color.CYAN}---Wort Festlegen---{text_color.END}\n\n  {text_color.BLUE}Das Wort muss mehr als einen Buchstaben haben{text_color.END}\n",
-    lambda: f"schon geratene Buchstaben:\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in alph])}\n\n  {guesses} von {max_guesses} falschen Versuchen\n  [{'='*(guesses-1)}{'>' if guesses > 0 else ''}{' '*guesses}]\n\n\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in word])}\n\n  {text_color.CYAN}Buchstabe oder Komplettlösung:{text_color.END}\n",
+    lambda: f"schon geratene Buchstaben:\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in alph])}\n\n  {guesses} von {max_guesses} falschen Versuchen\n  [{'='*(guesses-1)}{'>' if guesses > 0 else ''}{' '*(max_guesses-guesses)}]\n\n\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in word])}\n\n  {text_color.CYAN}Buchstabe oder Komplettlösung:{text_color.END}\n",
     lambda: f"Du hast {'GEWONNEN :)' if win else 'VERLOREN :('}\n",
 ]
 
