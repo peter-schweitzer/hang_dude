@@ -4,8 +4,6 @@
 - [[#Umsetzung]]
 - [[#Benutzeroberfläche und Benutzung]]
 
----
-
 ## Planung
 
 ### Anforderungen
@@ -23,8 +21,6 @@
   - bei richtiger Eingabe -> gewonnen
   - bei falscher Eingabe -> verloren
 
----
-
 ### Pflichten
 
 - [[#Helferfunktionen]]
@@ -39,8 +35,6 @@
     - [[#custom_word|Wort Festlegen Oder Zufällig Wählen]]
     - [[#enter_custom_name|Eigenes Wort eingeben]]
     - [[#done|Ende]]
-
----
 
 ## Umsetzung
 
@@ -70,8 +64,6 @@ def UE():
   WRN("Unerwartete Eingabe")
 ```
 
----
-
 ### Bevor das Spiel beginnt
 
 Beim Start des Programmes wird die `setup`-Funktion ausgeführt.
@@ -96,8 +88,6 @@ def setup() -> None:
   print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
 ```
 
----
-
 ### Main Loop
 
 ```python
@@ -114,8 +104,6 @@ def main() -> None:
 ```
 
 > einfache `while True`-Schleife, aus der zum Ende ausgebrochen wird
-
----
 
 ### State-Machine
 
@@ -184,10 +172,7 @@ i = input(prompts[state]).lower()
 ```
 ---Hauptmenu---
 
-
-
   1. (S)piel starten
-
   2. (E)instellungen
 ```
 
@@ -204,6 +189,8 @@ b e _ s p _ e l
 
 Buchstabe oder Komplettlösung:
 ```
+
+> hier mit dem Wort 'Beispiel' nach 4 falschen Versuchen
 
 ##### settings
 
