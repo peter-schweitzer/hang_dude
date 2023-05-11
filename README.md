@@ -124,23 +124,19 @@ Die State-Machine besteht aus Zuständen (Knotenpunkte) und Zustandsübergängen
 ```mermaid
 stateDiagram-v2
 
-main_menu --> done: 'q'
-
-main_menu --> playing: '1','1.','s'
+main_menu --> playing: '1','s'
 playing --> done: gewinnen/verlieren
 
-main_menu --> settings: '2','2.','e'
-settings --> main_menu: 'q'
-settings --> guess_num: '1','1.','a'
-settings --> custom_word: '2','2.','w'
+main_menu --> settings: '2','e'
+settings --> guess_num: '1','a'
+settings --> custom_word: '2','w'
 
-guess_num --> settings: eingabe/'q'
+guess_num --> settings: eingabe
 
-custom_word --> settings: 'q'
-custom_word --> enter_custom_word: '1','1.','z'
-custom_word --> enter_custom_word: '2','2.','w'
+custom_word --> settings: '1','z'
+custom_word --> enter_custom_word: '2','w'
 
-enter_custom_word --> settings: eingabe/'q'
+enter_custom_word --> settings: eingabe
 ```
 
 #### Unterscheidung der Zustände

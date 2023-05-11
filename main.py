@@ -54,8 +54,8 @@ prompts = [
     lambda: f"{text_color.CYAN}---Anzahl Der Versuche---{text_color.END}\n\n  {text_color.BLUE}bitte eine Zahl zwischen 0-25 oder 's' für Standart (Standartwert ist 10, momentan {max_guesses}){text_color.END}\n",
     lambda: f"{text_color.CYAN}---Wort Festlegen Oder Zufällig Wählen---{text_color.END}\n\n  {text_color.BLUE}1: (Z)ufälliges Wort {'(momentan)' if use_random_word else '' }\n  2: (W)ort Festlegen/Multiplayer {'' if use_random_word else '(momentan)' }{text_color.END}\n",
     lambda: f"{text_color.CYAN}---Wort Festlegen---{text_color.END}\n\n  {text_color.BLUE}Das Wort muss mehr als einen Buchstaben haben{text_color.END}\n",
-    lambda: f"schon geratene Buchstaben:\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in alph])}\n\n  {guesses} von {max_guesses} falschen Versuchen\n  [{'='*(guesses-1)}{'>' if guesses > 0 else ''}{' '*(max_guesses-guesses)}]\n\n\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in word])}\n\n  {text_color.CYAN}Buchstabe oder Komplettlösung:{text_color.END}\n",
-    lambda: f"Du hast {'GEWONNEN :)' if win else 'VERLOREN :('}\n",
+    lambda: f"schon geratene Buchstaben:\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in alph])}\n\n  {guesses} von {max_guesses} falschen Versuchen\n  [{'='*(guesses)}{'>'}{' '*(max_guesses-1-guesses)}]\n\n\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in word.lower()])}\n\n  {text_color.CYAN}Buchstabe oder Komplettlösung:{text_color.END}\n",
+    lambda: f"Du hast {'GEWONNEN :)' if win else 'VERLOREN :('}\nDas Wort war '{word}'\n",
 ]
 
 
@@ -69,10 +69,10 @@ def main_menu(i: str) -> None:
     if i == "q":
         exit(0)
 
-    if i in ["s", "1", "1."]:
+    if i in ["s", "1"]:
         guessed_chars = []
         state = States.playing
-    elif i in ["e", "2", "2."]:
+    elif i in ["e", "2"]:
         state = States.settings
     else:
         UE()
@@ -85,9 +85,9 @@ def settings(i: str) -> None:
         state = States.main_menu
         return
 
-    if i in ["1", "1.", "a"]:
+    if i in ["1", "a"]:
         state = States.guess_num
-    elif i in ["2", "2.", "w"]:
+    elif i in ["2", "w"]:
         state = States.custom_word
     else:
         UE()
@@ -126,10 +126,10 @@ def custom_word(i: str) -> None:
         state = States.settings
         return
 
-    if i in ["1", "1.", "z"]:
+    if i in ["1", "z"]:
         use_random_word = True
         state = States.settings
-    elif i in ["2", "2.", "w"]:
+    elif i in ["2", "w"]:
         state = States.enter_custom_word
     else:
         UE()
@@ -155,7 +155,7 @@ def playing(i: str) -> None:
         state = States.main_menu
 
     elif len(i) == len(word):
-        win = i == word
+        win = i == word.lower()
         state = States.done
 
     elif len(i) == 1:
@@ -165,7 +165,7 @@ def playing(i: str) -> None:
 
         guessed_chars.append(i)
 
-        if not i in word:
+        if not i in word.lower():
             guesses += 1
             if guesses == max_guesses:
                 win = False
@@ -174,7 +174,7 @@ def playing(i: str) -> None:
     else:
         UE()
 
-    if len([c for c in word if c in guessed_chars]) == len(word):
+    if len([c for c in word.lower() if c in guessed_chars]) == len(word):
         win = True
         state = States.done
 
@@ -217,9 +217,9 @@ if __name__ == "__main__":
         i = input(
             f"{text_color.GREEN}ERNEUT SPIELEN?{text_color.END}\n\n  {text_color.BLUE}1: (J)a\n  2: (N)ein{text_color.END}\n"
         ).lower()
-        if i in ["yes", "y", "ja", "j", ""]:
+        if i in ["", "1", "1", "j", "yes", "y", "ja"]:
             main()
-        elif i in ["q", "no", "n", "nein"]:
+        elif i in ["2", "2", "n", "q", "no", "nein"]:
             break
         else:
             UE()
