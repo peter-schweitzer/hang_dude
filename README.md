@@ -33,13 +33,13 @@
     - [[#settings|Einstellungen]]
     - [[#guess_num|Anzahl der Versuche]]
     - [[#custom_word|Wort Festlegen Oder Zufällig Wählen]]
-    - [[#enter_custom_name|Eigenes Wort eingeben]]
+    - [[#enter_custom_word|Eigenes Wort eingeben]]
     - [[#done|Ende]]
 
 ## Umsetzung
 
-> Ich habe mich for die Agile Methode entschieden, da ich in der Vergangenheit schon mehrere software Projekte umgesetzt habe.
-> Dadurch war ich mir sicher dass ich die Struktur meines Programms quasi parallel zu der Implementierung festlegen kann.
+> Ich habe mich für die Agile Methode entschieden, da ich in der Vergangenheit schon mehrere Softwareprojekte umgesetzt habe.
+> Dadurch war ich mir sicher, dass ich die Struktur meines Programms quasi parallel zu der Implementierung festlegen kann.
 > Insgesamt würde ich sagen, dass diese Herangehensweise bei einem Projekt dieser Größe gut umsetzbar ist.
 > Allerdings denke ich auch, dass bei größeren Projekten diese Herangehensweise nicht praktikabel ist.
 
