@@ -1,10 +1,12 @@
 #!/bin/python3
 
+# Importieren von benötigten Modulen
 from math import floor
 from random import random
 from typing import List, Literal
 
 
+# ANSII escape sequences für farbigen Text
 class text_color:
     BLUE: str = "\033[94m"
     CYAN: str = "\033[96m"
@@ -13,6 +15,7 @@ class text_color:
     END: str = "\033[0m"
 
 
+# mögliche Zustände der State-Machine
 class States:
     done: int = -1
     main_menu: int = 0
@@ -23,17 +26,21 @@ class States:
     playing: int = 5
 
 
+# alle Buchstaben
 alph: str = "abcdefghijklmnopqrstuvwxyz"
 
 
+# Helferfunktion für Warnungen
 def WRN(s: str) -> None:
     print(f"{text_color.ORANGE}{s}{text_color.END}")
 
 
+# Helferfunktion für unerwartete Eingaben
 def UE():
     WRN("Unerwartete Eingabe")
 
 
+# Variablen vorbereiten
 state: int = States.main_menu
 
 default_guesses: int = 10
@@ -47,7 +54,7 @@ word: str = ""
 
 win = False
 
-
+# Die texte die zu den entsprechenden Zuständen ausgegeben werden sollen (lambdas um interpolation jedes mal neu zu rendern)
 prompts = [
     lambda: f"{text_color.CYAN}---Hauptmenu---{text_color.END}\n\n  {text_color.BLUE}1: (S)piel starten\n  2: (E)instellungen{text_color.END}\n",
     lambda: f"{text_color.CYAN}---Einstellungen---{text_color.END}\n\n  {text_color.BLUE}1: (A)nzahl der Versuche\n  2: (W)ort festlegen oder zufällig wählen{text_color.END}\n",
@@ -57,6 +64,9 @@ prompts = [
     lambda: f"schon geratene Buchstaben:\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in alph])}\n\n  {guesses} von {max_guesses} falschen Versuchen\n  [{'='*(guesses)}{'>'}{' '*(max_guesses-1-guesses)}]\n\n\n  {' '.join([(text_color.BLUE + c + text_color.END) if c in guessed_chars else '_' for c in word.lower()])}\n\n  {text_color.CYAN}Buchstabe oder Komplettlösung:{text_color.END}\n",
     lambda: f"Du hast {'GEWONNEN :)' if win else 'VERLOREN :('}\nDas Wort war '{word}'\n",
 ]
+
+
+# Die Funktionen zu den entsprechenden Zuständen
 
 
 def setup() -> None:
@@ -193,10 +203,12 @@ def main() -> None:
     if use_random_word:
         with open("./deutsch.txt") as f:
             word = (lambda x: x[floor(random() * len(x))])(f.readlines())[:-1]
+
     else:
         state = States.enter_custom_word
 
     while True:
+        print("\033[2J")
         i = input(prompts[state]()).lower()
         if [
             main_menu,
@@ -210,6 +222,7 @@ def main() -> None:
             break
 
 
+# Eintrittspunkt des Programms
 if __name__ == "__main__":
     setup()
     main()
