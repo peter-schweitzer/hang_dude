@@ -289,7 +289,7 @@ Daher muss dort eine andere Eingabe (':q') genutzt werden.
 
 ```mermaid
 stateDiagram-v2
-playing --> main_menu: <span>'&#58q'<span/>
+playing --> main_menu: <span>'&#58q'</span>
 enter_custom_word --> custom_word: 'q'
 custom_word --> settings: 'q'
 guess_num --> settings: 'q'
