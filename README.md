@@ -33,21 +33,21 @@
     - [[#settings|Einstellungen]]
     - [[#guess_num|Anzahl der Versuche]]
     - [[#custom_word|Wort Festlegen Oder Zufällig Wählen]]
-    - [[#enter_custom_word|Eigenes Wort eingeben]]
+    - [[#enter_custom_name|Eigenes Wort eingeben]]
     - [[#done|Ende]]
 
 ## Umsetzung
 
-> Ich habe mich für die Agile Methode entschieden, da ich in der Vergangenheit schon mehrere Softwareprojekte umgesetzt habe.
-> Dadurch war ich mir sicher, dass ich die Struktur meines Programms quasi parallel zu der Implementierung festlegen kann.
-> Insgesamt würde ich sagen, dass diese Herangehensweise bei einem Projekt dieser Größe gut umsetzbar ist.
-> Allerdings denke ich auch, dass bei größeren Projekten diese Herangehensweise nicht praktikabel ist.
+Ich habe mich for die Agile Methode entschieden, da ich in der Vergangenheit schon mehrere software Projekte umgesetzt habe.
+Dadurch war ich mir sicher dass ich die Struktur meines Programms quasi parallel zu der Implementierung festlegen kann.
+Insgesamt würde ich sagen, dass diese Herangehensweise bei einem Projekt dieser Größe gut umsetzbar ist.
+Allerdings denke ich auch, dass bei größeren Projekten diese Herangehensweise nicht praktikabel ist.
 
 ### Helferfunktionen
 
 #### WRN
 
-Die Helferfunktion `WRN()` gibt den übergebenen `str` in Orange aus.
+Die Helferfunktion `WRN()` gibt den übergebenen String `str` in Orange aus.
 
 ```python
 def WRN(s: str) -> None:
@@ -56,8 +56,8 @@ def WRN(s: str) -> None:
 
 #### UE
 
-Die Helferfunktion `UE()` (UE = **U**nerwartete **E**ingabe) verringert Code-Dopplungen.
-Wenn eine Eingabe nicht den erwarteten Möglichkeiten entspricht wird diese Helferfunktion aufgerufen.
+Die Helferfunktion `UE()` (UE = **U**nerwartete **E**ingabe) wird aufgerufen wenn eine Eingabe nicht den erwarteten Möglichkeiten entspricht.
+Da dies an mehreren stellen passiert wird bei Änderung der Nachricht diese immer korrekt ausgegeben.
 
 ```python
 def UE():
@@ -66,26 +66,19 @@ def UE():
 
 ### Bevor das Spiel beginnt
 
-Beim Start des Programmes wird die `setup`-Funktion ausgeführt.
-Danach wird die `main()`-Funktion erstmal ausgeführt.
-nachdem wird diese immer wieder ausgeführt solange der Spieler dies möchte.
+Beim Start des Programmes wird der name ausgegeben.
+Danach wird die Funktion `main()` erstmal ausgeführt.
+Nachdem `main()` einmal ausgeführt wurde, wird diese immer wieder ausgeführt, wenn der Spieler dies möchte.
 
 ```python
 if __name__ == "__main__":
-  setup()
+  print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
   main()
   while True:
-    i = input(f"{text_color.GREEN}ERNEUT SPIELEN?{text_color.END}\n\n  {text_color.BLUE}1: (J)a\n  2: (N)ein{text_color.END}\n").lower()
-    if i in ["", "1", "1", "j", "yes", "y", "ja"]: main()
-    elif i in ["2", "2", "n", "q", "no", "nein"]: break
+    i = input(f"{text_color.GREEN}ERNEUT SPIELEN? [J/n]{text_color.END}").lower()
+    if i in ["yes", "y", "ja", "j", ""]: main()
+    elif i in ["q", "no", "n", "nein"]: break
     else: UE()
-```
-
-Die `setup()`-Funktion gibt lediglich den Namen des Spieles aus
-
-```python
-def setup() -> None:
-  print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
 ```
 
 ### Main Loop
@@ -101,9 +94,26 @@ def main() -> None:
     with open("./deutsch.txt") as f:
       word = (lambda x: x[floor(random() * len(x))])(f.readlines())[:-1]
   else: state = States.enter_custom_word
+
+  while True:
+    print("\033[2J")
+    if state == States.playing or state == States.done:
+      print(hung_dude[floor(guesses / (max_guesses / 10))])  # alle 10% kommt wird der Galgen erweitert
+
+    i = input(prompts[state]()).lower()
+    if [
+      main_menu,
+      settings,
+      guess_num,
+      custom_word,
+      enter_custom_word,
+      playing,
+      done,
+    ][state](i):
+      break
 ```
 
-> einfache `while True`-Schleife, aus der zum Ende ausgebrochen wird
+erst wird das zu erratene Wort gewählt und dann eine `while True`-Schleife ausgeführt bis der Zustand `done` erreicht ist.
 
 ### State-Machine
 
@@ -179,6 +189,14 @@ i = input(prompts[state]).lower()
 ##### playing
 
 ```
+ ________
+ |     ||
+ |
+ |
+ |
+ ꘍
+/ \
+
 schon geratene Buchstaben:
   a b c d e _ _ _ _ _ _ l _ _ _ p _ _ s t _ _ _ _ _ _
 

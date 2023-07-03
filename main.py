@@ -8,22 +8,22 @@ from typing import List, Literal
 
 # ANSII escape sequences für farbigen Text
 class text_color:
-  BLUE: str = "\033[94m"
-  CYAN: str = "\033[96m"
-  GREEN: str = "\033[92m"
-  ORANGE: str = "\033[93m"
-  END: str = "\033[0m"
+    BLUE: str = "\033[94m"
+    CYAN: str = "\033[96m"
+    GREEN: str = "\033[92m"
+    ORANGE: str = "\033[93m"
+    END: str = "\033[0m"
 
 
 # mögliche Zustände der State-Machine
 class States:
-  done: int = -1
-  main_menu: int = 0
-  settings: int = 1
-  guess_num: int = 2
-  custom_word: int = 3
-  enter_custom_word: int = 4
-  playing: int = 5
+    done: int = -1
+    main_menu: int = 0
+    settings: int = 1
+    guess_num: int = 2
+    custom_word: int = 3
+    enter_custom_word: int = 4
+    playing: int = 5
 
 
 # alle Buchstaben
@@ -32,12 +32,12 @@ alph: str = "abcdefghijklmnopqrstuvwxyz"
 
 # Helferfunktion für Warnungen
 def WRN(s: str) -> None:
-  print(f"{text_color.ORANGE}{s}{text_color.END}")
+    print(f"{text_color.ORANGE}{s}{text_color.END}")
 
 
 # Helferfunktion für unerwartete Eingaben
 def UE():
-  WRN("Unerwartete Eingabe")
+    WRN("Unerwartete Eingabe")
 
 
 # Variablen vorbereiten
@@ -54,18 +54,19 @@ word: str = ""
 
 win = False
 
+# ASCII-Kunst
 hung_dude = [
-    '\n\n\n\n\n\n\n',
-    '\n\n\n\n\n ꘍\n/ \\\n',
-    '\n |\n |\n |\n |\n ꘍\n/ \\\n',
-    ' ________\n |\n |\n |\n |\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |\n |\n |\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |\n |     []\n |\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |    \\\n |     []\n |\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |    \  /\n |     []\n |\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |    \  /\n |     []\n |    _/\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |    \  /\n |     []\n |    _/\\_\n ꘍\n/ \\\n',
-    ' ________\n |     ||\n |    \\()/\n |     []\n |    _/\\_\n ꘍\n/ \\\n',
+    "\n\n\n\n\n\n\n",
+    "\n\n\n\n\n ꘍\n/ \\\n",
+    "\n |\n |\n |\n |\n ꘍\n/ \\\n",
+    " ________\n |\n |\n |\n |\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |\n |\n |\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |\n |     []\n |\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |    \\\n |     []\n |\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |    \\  /\n |     []\n |\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |    \\  /\n |     []\n |    _/\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |    \\  /\n |     []\n |    _/\\_\n ꘍\n/ \\\n",
+    " ________\n |     ||\n |    \\()/\n |     []\n |    _/\\_\n ꘍\n/ \\\n",
 ]  # nice
 
 
@@ -82,174 +83,169 @@ prompts = [
 
 
 # Die Funktionen zu den entsprechenden Zuständen
-
-
-def setup() -> None:
-  print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
-
-
 def main_menu(i: str) -> None:
-  global state, guessed_chars
+    global state, guessed_chars
 
-  if i == "q":
-    exit(0)
+    if i == "q":
+        exit(0)
 
-  if i in ["s", "1"]:
-    guessed_chars = []
-    state = States.playing
-  elif i in ["e", "2"]:
-    state = States.settings
-  else:
-    UE()
+    if i in ["s", "1"]:
+        guessed_chars = []
+        state = States.playing
+    elif i in ["e", "2"]:
+        state = States.settings
+    else:
+        UE()
 
 
 def settings(i: str) -> None:
-  global state
+    global state
 
-  if i == "q":
-    state = States.main_menu
-    return
+    if i == "q":
+        state = States.main_menu
+        return
 
-  if i in ["1", "a"]:
-    state = States.guess_num
-  elif i in ["2", "w"]:
-    state = States.custom_word
-  else:
-    UE()
+    if i in ["1", "a"]:
+        state = States.guess_num
+    elif i in ["2", "w"]:
+        state = States.custom_word
+    else:
+        UE()
 
 
 def guess_num(i: str) -> None:
-  global state, max_guesses, default_guesses
+    global state, max_guesses, default_guesses
 
-  if i == "q":
+    if i == "q":
+        state = States.settings
+        return
+
+    if i == "s":
+        max_guesses = default_guesses
+        state = States.settings
+        return
+
+    try:
+        n = int(i, 10)
+    except ValueError:
+        WRN("Eingabe ist keine Zahl")
+        return
+
+    if n < 0 or n > 25:
+        WRN("Eingabe ist eine ungültige Zahl")
+        return
+
+    max_guesses = n
     state = States.settings
-    return
-
-  if i == "s":
-    max_guesses = default_guesses
-    state = States.settings
-    return
-
-  try:
-    n = int(i, 10)
-  except ValueError:
-    WRN("Eingabe ist keine Zahl")
-    return
-
-  if n < 0 or n > 25:
-    WRN("Eingabe ist eine ungültige Zahl")
-    return
-
-  max_guesses = n
-  state = States.settings
 
 
 def custom_word(i: str) -> None:
-  global state, use_random_word
+    global state, use_random_word
 
-  if i == "q":
-    state = States.settings
-    return
+    if i == "q":
+        state = States.settings
+        return
 
-  if i in ["1", "z"]:
-    use_random_word = True
-    state = States.settings
-  elif i in ["2", "w"]:
-    state = States.enter_custom_word
-  else:
-    UE()
+    if i in ["1", "z"]:
+        use_random_word = True
+        state = States.settings
+    elif i in ["2", "w"]:
+        state = States.enter_custom_word
+    else:
+        UE()
 
 
 def enter_custom_word(i: str) -> None:
-  global state, word, use_random_word
+    global state, word, use_random_word
 
-  if i == "q":
-    state = States.custom_word
-  elif len(i) < 2:
-    UE()
-  else:
-    word = i
-    use_random_word = False
-    state = States.settings
+    if i == "q":
+        state = States.custom_word
+    elif len(i) < 2:
+        UE()
+    else:
+        word = i
+        use_random_word = False
+        state = States.settings
 
 
 def playing(i: str) -> None:
-  global state, word, max_guesses, guesses, win
+    global state, word, max_guesses, guesses, win
 
-  if i == ":q":
-    state = States.main_menu
+    if i == ":q":
+        state = States.main_menu
 
-  elif len(i) == len(word):
-    win = i == word.lower()
-    state = States.done
-
-  elif len(i) == 1:
-    if i in guessed_chars:
-      print("Buchstabe wurde bereits geraten")
-      return
-
-    guessed_chars.append(i)
-
-    if not i in word.lower():
-      guesses += 1
-      if guesses == max_guesses:
-        win = False
+    elif len(i) == len(word):
+        win = i == word.lower()
         state = States.done
 
-  else:
-    UE()
+    elif len(i) == 1:
+        if i in guessed_chars:
+            print("Buchstabe wurde bereits geraten")
+            return
 
-  if len([c for c in word.lower() if c in guessed_chars]) == len(word):
-    win = True
-    state = States.done
+        guessed_chars.append(i)
+
+        if not i in word.lower():
+            guesses += 1
+            if guesses == max_guesses:
+                win = False
+                state = States.done
+
+    else:
+        UE()
+
+    if len([c for c in word.lower() if c in guessed_chars]) == len(word):
+        win = True
+        state = States.done
 
 
 def done(_: str) -> "Literal[True]":
-  return True
+    return True
 
 
 def main() -> None:
-  global state, guesses, use_random_word, word, win, prompts
+    global state, guesses, use_random_word, word, win, prompts
 
-  guesses = 0
-  state = States.main_menu
-  win = False
+    guesses = 0
+    state = States.main_menu
+    win = False
 
-  if use_random_word:
-    with open("./deutsch.txt") as f:
-      word = (lambda x: x[floor(random() * len(x))])(f.readlines())[:-1]
+    if use_random_word:
+        with open("./deutsch.txt") as f:
+            word = (lambda x: x[floor(random() * len(x))])(f.readlines())[:-1]
+    else:
+        state = States.enter_custom_word
 
-  else:
-    state = States.enter_custom_word
-
-  while True:
-    print("\033[2J")
-    if (state == States.playing or state == States.done) and max_guesses == 10:
-      print(hung_dude[guesses])
-    i = input(prompts[state]()).lower()
-    if [
-        main_menu,
-        settings,
-        guess_num,
-        custom_word,
-        enter_custom_word,
-        playing,
-        done,
-    ][state](i):
-      break
+    while True:
+        print("\033[2J")
+        if state == States.playing or state == States.done:
+            print(
+                hung_dude[floor(guesses / (max_guesses / 10))]
+            )  # alle 10% kommt wird der Galgen erweitert
+        i = input(prompts[state]()).lower()
+        if [
+            main_menu,
+            settings,
+            guess_num,
+            custom_word,
+            enter_custom_word,
+            playing,
+            done,
+        ][state](i):
+            break
 
 
 # Eintrittspunkt des Programms
 if __name__ == "__main__":
-  setup()
-  main()
-  while True:
-    i = input(
-        f"{text_color.GREEN}ERNEUT SPIELEN?{text_color.END}\n\n  {text_color.BLUE}1: (J)a\n  2: (N)ein{text_color.END}\n"
-    ).lower()
-    if i in ["", "1", "1", "j", "yes", "y", "ja"]:
-      main()
-    elif i in ["2", "2", "n", "q", "no", "nein"]:
-      break
-    else:
-      UE()
+    print(f"{text_color.CYAN}====HANG-DUDE===={text_color.END}\n\n")
+    main()
+    while True:
+        i = input(
+            f"{text_color.GREEN}ERNEUT SPIELEN?{text_color.END}\n\n  {text_color.BLUE}1: (J)a\n  2: (N)ein{text_color.END}\n"
+        ).lower()
+        if i in ["", "1", "1", "j", "yes", "y", "ja"]:
+            main()
+        elif i in ["2", "2", "n", "q", "no", "nein"]:
+            break
+        else:
+            UE()
